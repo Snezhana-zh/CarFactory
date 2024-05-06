@@ -1,0 +1,9 @@
+CarBodyStorageCapacity=7
+MotorStorageCapacity=4
+AccessoryStorageCapacity=6
+CarStorageCapacity=10
+SupplierDelay=700
+DealerDelay=7000
+NumberOfDealers=3
+NumberOfWorkers=4
+NumberOfSuppliers=2

@@ -19,36 +19,62 @@ public class Storage<T extends Product> {
         items = new ArrayDeque<>();
         logger.info(storageName + " :: CREATED");
     }
-    public void put(T newItem) throws InterruptedException {
-        synchronized (monitor) {
-            if (items.size() >= capacity) {
-                try {
-                    logger.info(storageName + " :: STORAGE IS FULL");
-                    monitor.wait();
-                } catch (InterruptedException e) {
-                    logger.info(storageName + " :: INTERRUPTED IN WAIT");
-                    throw e;
-                }
-            }
-            logger.info(storageName + " :: GOT NEW ITEM :: " + newItem.getClass().getName() + " id: " + newItem.getId());
-            items.add(newItem);
-            monitor.notify();
-            logger.info(storageName + " :: NOTIFIED");
-        }
-    }
+//    public void put(T newItem) throws InterruptedException {
+//        synchronized (monitor) {
+//            if (items.size() >= capacity) {
+//                try {
+//                    logger.info(storageName + " :: STORAGE IS FULL");
+//                    monitor.wait();
+//                    logger.info(storageName + " :: SSSSIIIIIIZZZZZZZEEEEEE AFTER WAIT : " + items.size() + " TH " + Thread.currentThread().getName());
+//                } catch (InterruptedException e) {
+//                    // logger.info(storageName + " :: INTERRUPTED IN WAIT");
+//                    throw e;
+//                }
+//            }
+//            logger.info(storageName + " SIZE " + items.size());
+//            logger.info(storageName + " :: GOT NEW ITEM :: " + newItem.getClass().getName() + " id: " + newItem.getId());
+//            items.add(newItem);
+//            logger.info(storageName + " :: NOTIFIED");
+//            monitor.notify();
+//        }
+//    }
     public T get () throws InterruptedException {
         synchronized (monitor) {
             while (true) {
                 try {
                     logger.info(storageName + " SIZE " + items.size());
                     if (!items.isEmpty()) {
-                        // T item = items.getLast();
-                        T item = items.remove();
-                        monitor.notify();
+                        T item = items.getLast();
+                        items.remove();
                         logger.info(storageName + " :: PASSING PRODUCT");
+                        monitor.notify();
                         return item;
                     } else {
                         logger.info(storageName + " :: WAITING FOR A SPARE");
+                        monitor.wait();
+                        logger.info(storageName + " :: WOKE UP");
+                    }
+                } catch (InterruptedException e) {
+                    logger.info(storageName + " :: INTERRUPTED IN WAIT");
+                    throw e;
+                }
+            }
+        }
+    }
+
+    public void put(T newItem) throws InterruptedException {
+        synchronized (monitor) {
+            while (true) {
+                try {
+                    logger.info(storageName + " SIZE " + items.size());
+                    if (items.size() < capacity) {
+                        logger.info(storageName + " :: GOT NEW ITEM :: " + newItem.getClass().getName() + " id: " + newItem.getId());
+                        items.add(newItem);
+                        logger.info(storageName + " :: NOTIFIED");
+                        monitor.notify();
+                        return;
+                    } else {
+                        logger.info(storageName + " :: STORAGE IS FULL");
                         monitor.wait();
                         logger.info(storageName + " :: WOKE UP");
                     }

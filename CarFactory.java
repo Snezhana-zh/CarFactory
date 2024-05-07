@@ -50,7 +50,7 @@ public class CarFactory {
         Task supplierTaskAccessory = new SupplyTask<CarAccessory>("supplierTaskAccessory", accessoryStorage, CarAccessory.class, supplierDelay);
         Task supplierTaskMotor = new SupplyTask<CarMotor>("supplierTaskMotor", motorStorage, CarMotor.class, supplierDelay);
         Task workerTask = new WorkerTask("workerTask", carBodyStorage, accessoryStorage, motorStorage, carStorage);
-        Task dealerTask = new DealerTask("dealerTask", dealerDelay);
+        Task dealerTask = new DealerTask("dealerTask", dealerDelay, carStorage);
 
         controller = new Controller(carStorage);
 

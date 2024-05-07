@@ -1,3 +1,5 @@
+import java.lang.reflect.InvocationTargetException;
+
 public class WorkerTask extends Task {
     private final Storage<Car> carStorage;
     private final Storage<CarAccessory> carAccessoryStorage;
@@ -17,8 +19,9 @@ public class WorkerTask extends Task {
             CarBody cb = carBodyStorage.get();
             CarAccessory ca = carAccessoryStorage.get();
             CarMotor cm = carMotorStorage.get();
-            Car new_car = new Car(ca, cb, cm);
-            carStorage.put(new_car);
+            // Car it = Car.class.getDeclaredConstructor(CarAccessory.class,CarBody.class,CarMotor.class).newInstance(ca,cb,cm);
+            carStorage.put(new Car(ca, cb, cm));
+            // carStorage.put(it);
         }
     }
 }

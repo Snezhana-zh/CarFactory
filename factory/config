@@ -7,3 +7,4 @@ DealerDelay=1200
 NumberOfDealers=2
 NumberOfWorkers=3
 NumberOfSuppliers=3
+logsave=true

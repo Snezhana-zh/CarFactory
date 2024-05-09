@@ -7,6 +7,7 @@ import threadpool.ThreadPool;
 public class CarFactory {
     private static final Logger logger = Logger.getLogger(CarFactory.class.getName());
     private Properties properties;
+    public static boolean logsave = true;
 
     private final Storage<CarMotor> motorStorage;
     private final Storage<CarBody> carBodyStorage;
@@ -35,6 +36,8 @@ public class CarFactory {
             e.printStackTrace();
         }
 
+
+        logsave = Boolean.parseBoolean(properties.getProperty("logsave"));
         carBodyStorage = new Storage<>(Integer.parseInt(properties.getProperty("CarBodyStorageCapacity")), "CarBodyStorage");
         motorStorage = new Storage<>(Integer.parseInt(properties.getProperty("MotorStorageCapacity")), "MotorStorage");
         accessoryStorage = new Storage<>(Integer.parseInt(properties.getProperty("AccessoryStorageCapacity")), "AccessoryStorage");

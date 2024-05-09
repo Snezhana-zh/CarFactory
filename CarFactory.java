@@ -16,6 +16,12 @@ public class CarFactory {
     private final ThreadPool supplierThreadPool;
     private final ThreadPool dealerThreadPool;
 
+    private final Task supplierTaskBody;
+    private final Task supplierTaskAccessory;
+    private final Task supplierTaskMotor;
+    private final Task workerTask;
+    private final Task dealerTask;
+
     public static Controller controller;
 
     public CarFactory() {
@@ -28,7 +34,6 @@ public class CarFactory {
             e.printStackTrace();
         }
 
-        // create storages
         carBodyStorage = new Storage<>(Integer.parseInt(properties.getProperty("CarBodyStorageCapacity")), "CarBodyStorage");
         motorStorage = new Storage<>(Integer.parseInt(properties.getProperty("MotorStorageCapacity")), "MotorStorage");
         accessoryStorage = new Storage<>(Integer.parseInt(properties.getProperty("AccessoryStorageCapacity")), "AccessoryStorage");
@@ -41,20 +46,20 @@ public class CarFactory {
         int workerCount = Integer.parseInt(properties.getProperty("NumberOfWorkers"));
         int supplierCount = Integer.parseInt(properties.getProperty("NumberOfSuppliers"));
 
-        // create thread pools
+
         supplierThreadPool = new ThreadPool(supplierCount * 3);
         workerThreadPool = new ThreadPool(workerCount);
         dealerThreadPool = new ThreadPool(dealerCount);
 
-        Task supplierTaskBody = new SupplyTask<CarBody>("supplierTaskBody", carBodyStorage, CarBody.class, supplierDelay);
-        Task supplierTaskAccessory = new SupplyTask<CarAccessory>("supplierTaskAccessory", accessoryStorage, CarAccessory.class, supplierDelay);
-        Task supplierTaskMotor = new SupplyTask<CarMotor>("supplierTaskMotor", motorStorage, CarMotor.class, supplierDelay);
-        Task workerTask = new WorkerTask("workerTask", carBodyStorage, accessoryStorage, motorStorage, carStorage);
-        Task dealerTask = new DealerTask("dealerTask", dealerDelay, carStorage);
+        //Tasks
+        supplierTaskBody = new SupplyTask<CarBody>("supplierTaskBody", carBodyStorage, CarBody.class, supplierDelay);
+        supplierTaskAccessory = new SupplyTask<CarAccessory>("supplierTaskAccessory", accessoryStorage, CarAccessory.class, supplierDelay);
+        supplierTaskMotor = new SupplyTask<CarMotor>("supplierTaskMotor", motorStorage, CarMotor.class, supplierDelay);
+        workerTask = new WorkerTask("workerTask", carBodyStorage, accessoryStorage, motorStorage, carStorage);
+        dealerTask = new DealerTask("dealerTask", dealerDelay);
 
         controller = new Controller(carStorage);
 
-        // start production
         Thread factory = new Thread(() -> {
             for (int i = 0; i < supplierCount; ++i) {
                 supplierThreadPool.addTask(supplierTaskBody);
@@ -77,6 +82,23 @@ public class CarFactory {
         workerThreadPool.shutdown();
         logger.info("FACTORY :: FINISHED WORKING");
     }
+
+    public Task getDealerTask() {
+        return dealerTask;
+    }
+
+    public Task getSupplierBodyTask() {
+        return supplierTaskBody;
+    }
+
+    public Task getSupplierAccessoryTask() {
+        return supplierTaskAccessory;
+    }
+
+    public Task getSupplierMotorTask() {
+        return supplierTaskMotor;
+    }
+
     public int getCarStorageItemCount() {
         return carStorage.getItemCount();
     }

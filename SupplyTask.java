@@ -3,11 +3,14 @@ import java.lang.reflect.InvocationTargetException;
 public class SupplyTask<T extends Detail> extends Task {
     private final Storage<T> storage;
     private final Class<T> itemT;
-    private static int delay;
+    private int delay;
     public SupplyTask(String n, Storage<T> st, Class<T> it, int d) {
         super(n);
         storage = st;
         itemT = it;
+        delay = d;
+    }
+    public void setDelay(int d) {
         delay = d;
     }
     @Override

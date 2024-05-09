@@ -7,4 +7,5 @@ public abstract class Task {
         return name;
     }
     public abstract void perform() throws InterruptedException;
+    public abstract void setDelay(int d);
 }

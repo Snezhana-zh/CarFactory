@@ -1,3 +1,4 @@
+package factory;
 import java.lang.reflect.InvocationTargetException;
 
 public class WorkerTask extends Task {
@@ -24,7 +25,6 @@ public class WorkerTask extends Task {
             // carStorage.put(it);
         }
     }
-
     @Override
     public void setDelay(int d) {
         return;

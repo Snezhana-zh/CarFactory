@@ -1,3 +1,4 @@
+package factory;
 public abstract class Task {
     private final String name;
     public Task(String n) {

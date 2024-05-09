@@ -1,3 +1,4 @@
+package factory;
 import java.util.logging.Logger;
 
 public class DealerTask extends Task {

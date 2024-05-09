@@ -1,9 +1,8 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.util.TimerTask;
 import java.util.Timer;
-
+import factory.*;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -23,7 +22,7 @@ public class Main {
         JFrame frame = new JFrame("CarFactory");
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(510, 830); // размеры окна
+        frame.setSize(510, 630); // размеры окна
         frame.setLocationRelativeTo(null); // окно - в центре экрана
 
         JPanel panel = (JPanel)frame.getContentPane();

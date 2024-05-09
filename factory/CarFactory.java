@@ -1,8 +1,9 @@
+package factory;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
-
+import threadpool.ThreadPool;
 public class CarFactory {
     private static final Logger logger = Logger.getLogger(CarFactory.class.getName());
     private Properties properties;
@@ -28,7 +29,7 @@ public class CarFactory {
         logger.info("CAR FACTORY :: STARTING");
         try {
             properties = new Properties();
-            properties.load(this.getClass().getResourceAsStream("config2"));
+            properties.load(this.getClass().getResourceAsStream("config"));
 
         } catch (IOException e) {
             e.printStackTrace();

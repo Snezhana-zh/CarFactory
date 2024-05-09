@@ -2,7 +2,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.util.ArrayList;
+import factory.*;
 
 public class MySlider implements ChangeListener {
     private JLabel label;
@@ -18,6 +18,7 @@ public class MySlider implements ChangeListener {
         task = t;
         slider = new JSlider(0,6000, 2000);
         label = new JLabel();
+        label.setFont(new Font("Arial", Font.PLAIN, 28));
 
         slider.setBackground(Color.WHITE);
         slider.setPreferredSize(new Dimension(400,100));

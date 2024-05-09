@@ -1,3 +1,4 @@
+package factory;
 import java.lang.reflect.InvocationTargetException;
 
 public class SupplyTask<T extends Detail> extends Task {

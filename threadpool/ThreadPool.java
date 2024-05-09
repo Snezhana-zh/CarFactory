@@ -1,7 +1,9 @@
+package threadpool;
 import java.util.ArrayDeque;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
+import factory.*;
 public class ThreadPool {
     private final ArrayDeque<Task> taskQueue = new ArrayDeque<>();
     private final Set<PooledThread> availableThreads = new HashSet<>();

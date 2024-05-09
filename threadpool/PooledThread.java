@@ -1,5 +1,6 @@
+package threadpool;
+import factory.*;
 import java.util.ArrayDeque;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 
 public class PooledThread extends Thread {

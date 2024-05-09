@@ -1,3 +1,4 @@
+package factory;
 import java.util.ArrayDeque;
 import java.util.logging.Logger;
 
@@ -19,25 +20,6 @@ public class Storage<T extends Product> {
         items = new ArrayDeque<>();
         logger.info(storageName + " :: CREATED");
     }
-//    public void put(T newItem) throws InterruptedException {
-//        synchronized (monitor) {
-//            if (items.size() >= capacity) {
-//                try {
-//                    logger.info(storageName + " :: STORAGE IS FULL");
-//                    monitor.wait();
-//                    logger.info(storageName + " :: SSSSIIIIIIZZZZZZZEEEEEE AFTER WAIT : " + items.size() + " TH " + Thread.currentThread().getName());
-//                } catch (InterruptedException e) {
-//                    // logger.info(storageName + " :: INTERRUPTED IN WAIT");
-//                    throw e;
-//                }
-//            }
-//            logger.info(storageName + " SIZE " + items.size());
-//            logger.info(storageName + " :: GOT NEW ITEM :: " + newItem.getClass().getName() + " id: " + newItem.getId());
-//            items.add(newItem);
-//            logger.info(storageName + " :: NOTIFIED");
-//            monitor.notify();
-//        }
-//    }
     public T get () throws InterruptedException {
         synchronized (monitor) {
             while (true) {
